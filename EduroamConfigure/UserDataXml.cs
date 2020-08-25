@@ -162,7 +162,7 @@ namespace EduroamConfigure
                         )
                     ),
 
-                (EapType.TTLS, InnerAuthType.EAP_PEAP_MSCHAPv2) => // TODO: matches schema, but produces an error
+                (EapType.TTLS, InnerAuthType.EAP_PEAP) => // TODO: matches schema, but produces an error
 
                     new XElement(nsTTLS + "EapTtls",
                         //new XElement(nsTTLS + "Username", uname),
@@ -204,10 +204,10 @@ namespace EduroamConfigure
                 //(EapType.MSCHAPv2, InnerAuthType.None) => true,
                 (EapType.PEAP, InnerAuthType.EAP_MSCHAPv2) => true,
                 (EapType.TTLS, InnerAuthType.PAP) => !isX86,
-                (EapType.TTLS, InnerAuthType.MSCHAP) => !isX86, // not tested, but matches schema
+                (EapType.TTLS, InnerAuthType.MSCHAP) => !isX86,
                 (EapType.TTLS, InnerAuthType.MSCHAPv2) => !isX86,
+                //(EapType.TTLS, InnerAuthType.EAP_PEAP) => at_least_win10 && !isX86, // TODO: xml matches the schema, but win32 throws an error.
                 //(EapType.TTLS, InnerAuthType.EAP_MSCHAPv2) => at_least_win10 && !isX86, // TODO: xml matches the schema, but win32 throws an error.
-                //(EapType.TTLS, InnerAuthType.EAP_PEAP_MSCHAPv2) => at_least_win10 && !isX86, // TODO: xml matches the schema, but win32 throws an error.
                 _ => false,
             };
         }

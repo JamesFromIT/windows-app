@@ -312,7 +312,7 @@ namespace EduroamConfigure
                                     new XElement(nsTTLS + "MSCHAPv2Authentication",
                                         new XElement(nsTTLS + "UseWinlogonCredentials", "false")
                                     ),
-                                InnerAuthType.EAP_PEAP_MSCHAPv2 =>
+                                InnerAuthType.EAP_PEAP =>
                                     CreateEapConfiguration(
                                         EapType.PEAP,
                                         InnerAuthType.EAP_MSCHAPv2,
@@ -379,8 +379,8 @@ namespace EduroamConfigure
             // TODO: hotspot2.0 requires Windows 10
             bool hasOID = authMethod.EapConfig.CredentialApplicabilities
                 .Any(cred => cred.ConsortiumOid != null);
-            bool isPEAP = authMethod.EapType == EapType.PEAP;
-            return hasOID && !isPEAP; // Hotstpot2.0 does not support PEAP
+            // TODO: Are there any authentication methods that cannot work on HS20?
+            return hasOID && UserDataXml.IsSupported(authMethod);
         }
 
         /// <summary>
@@ -414,7 +414,7 @@ namespace EduroamConfigure
                 (EapType.TTLS, InnerAuthType.MSCHAP) => true,
                 (EapType.TTLS, InnerAuthType.MSCHAPv2) => true,
                 (EapType.TTLS, InnerAuthType.EAP_MSCHAPv2) => at_least_win10,
-                (EapType.TTLS, InnerAuthType.EAP_PEAP_MSCHAPv2) => at_least_win10,
+                (EapType.TTLS, InnerAuthType.EAP_PEAP) => at_least_win10,
                 _ => false,
             };
         }

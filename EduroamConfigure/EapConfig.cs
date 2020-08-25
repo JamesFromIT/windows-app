@@ -745,7 +745,7 @@ namespace EduroamConfigure
         MSCHAP = 2,
         MSCHAPv2 = 3,
         // Tunneled Eap methods
-        EAP_PEAP_MSCHAPv2 = 25,
+        EAP_PEAP = 25,
         EAP_MSCHAPv2 = 26,
     }
 
