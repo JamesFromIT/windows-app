@@ -380,7 +380,7 @@ namespace EduroamConfigure
             bool hasOID = authMethod.EapConfig.CredentialApplicabilities
                 .Any(cred => cred.ConsortiumOid != null);
             // TODO: Are there any authentication methods that cannot work on HS20?
-            return hasOID && UserDataXml.IsSupported(authMethod);
+            return hasOID;
         }
 
         /// <summary>

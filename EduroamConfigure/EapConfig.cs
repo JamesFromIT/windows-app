@@ -102,10 +102,13 @@ namespace EduroamConfigure
             /// Ensure you install certificates with ConnectToEduroam.EnumerateCAs()
             /// </summary>
             public AuthenticationMethod Hs2AuthMethod {
+                // TODO earlier we blocked some authentication methods from being used in HS20
+                // but this may no longer be necessary (Github#21), so maybe this property should be deprecated
+                // as it's essentially `return ProfileXml.SupportsHs2(this) ? this : null` now.
                 get => ProfileXml.SupportsHs2(this)
                     ? this
                     : EapConfig.AuthenticationMethods
-                        .FirstOrDefault(ProfileXml.SupportsHs2);
+                        .FirstOrDefault((AuthenticationMethod a) => ProfileXml.SupportsHs2(a) && UserDataXml.IsSupported(a));
             }
 
             /// <summary>
